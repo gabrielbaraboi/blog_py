@@ -1,0 +1,35 @@
+{
+  "name": "blogpy",
+  "version": "1.0.0",
+  "description": "A blog built on Flask Framework",
+  "main": "app.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielbaraboi/blog_py.git"
+  },
+  "keywords": [
+    "blog",
+    "python",
+    "flask",
+    "framework"
+  ],
+  "author": "Gabriel Baraboi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielbaraboi/blog_py/issues"
+  },
+  "homepage": "https://github.com/gabrielbaraboi/blog_py#readme",
+  "devDependencies": {
+    "bootstrap": "^4.4.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rsync": "0.0.8",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify-es": "^2.0.0"
+  }
+}
