@@ -6,25 +6,51 @@ from app import app, db
 from app.forms import LoginForm
 from app.forms import RegisterForm
 from app.models import User, is_admin
+from config import Config
+
+app_name = Config.app_name
 
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Home', is_admin=is_admin())
+    global app_name
+    return render_template('index.html',
+                           title='Home',
+                           is_admin=is_admin(),
+                           app_name=app_name)
+
+
 
 
 @app.route('/dashboard')
 def dashboard():
+    global app_name
     if not is_admin():
         flash('You are not administrator', 'danger')
         return redirect('index')
-    return render_template('dashboard/index.html', title='Dashboard')
+    return render_template('dashboard/index.html',
+                           title='Dashboard',
+                           app_name=app_name)
+
+
+@app.route('/profile/<username>')
+@login_required
+def profile(username):
+    global app_name
+    user = User.query.filter_by(username=username).first_or_404()
+    title = 'Profile - ' + user.username
+    return render_template('profile.html',
+                           user=user,
+                           title=title,
+                           app_name=app_name,
+                           is_admin=is_admin())
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    global app_name
     if current_user.is_authenticated:
         flash('You are already logged in', 'warning')
         return redirect(url_for('index'))
@@ -39,11 +65,15 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html',
+                           title='Sign In',
+                           form=form,
+                           app_name=app_name)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    global app_name
     if current_user.is_authenticated:
         flash('You are already logged in', 'warning')
         return redirect(url_for('index'))
@@ -57,7 +87,10 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!', 'success')
         return redirect('login')
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html',
+                           title='Register',
+                           form=form,
+                           app_name=app_name)
 
 
 @app.route('/logout')

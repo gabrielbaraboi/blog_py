@@ -30,6 +30,10 @@
                         <span class='invalid-feedback'>{{ error }}</span>
                     {% endfor %}
                 </div>
+                <div class="form-check form-group">
+                     {{ form.remember_me(class="form-check-input") }}
+                    <label class="form-check-label" for="remember_me">Remember me</label>
+                </div>
                 <div class="row">
                     <div class="col">
                         {{ form.submit(class="btn btn-success btn-block") }}

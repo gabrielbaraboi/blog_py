@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">
-                {{ title }}
+                {{ app_name }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
                                         <span>Dashboard</span>
                                     </a>
                                 {% endif %}
-                                <a class="dropdown-item rounded" href="#">
+                                <a class="dropdown-item rounded" href="{{ url_for('profile', username=current_user.username) }}">
                                     <span>Profile</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
