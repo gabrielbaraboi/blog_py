@@ -11,16 +11,15 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">
                 {{ title }}
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExample07">
+            <div class="collapse navbar-collapse" >
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index') }}">Home</a>
@@ -35,28 +34,33 @@
                             <a class="nav-link" href="{{ url_for('register') }}">Register</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ current_user.username }}<span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu- p-2" aria-labelledby="navbarDropdown">
+                                {% if is_admin %}
+                                    <a class="dropdown-item rounded" href="/dashboard">
+                                        <span>Dashboard</span>
+                                    </a>
+                                {% endif %}
+                                <a class="dropdown-item rounded" href="#">
+                                    <span>Profile</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item badge-danger rounded" href="{{ url_for('logout') }}">
+                                    <span>Log Out</span>
+                                </a>
+                            </div>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-    <main class="py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <ul>
-                    {% for message in messages %}
-                    <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                {% endwith %}
-                {% block content %}{% endblock %}
-            </div>
+    <main class="container">
+        <div class="row">
+            {% block content %}{% endblock %}
         </div>
     </main>
     <footer class="page-footer font-small fixed-bottom bg-dark">
@@ -64,5 +68,8 @@
             <a href="/"> Simple Blog</a>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

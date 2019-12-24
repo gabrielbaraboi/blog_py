@@ -1,55 +1,49 @@
 {% extends "layout/base.html" %}
 
 {% block content %}
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">Register</div>
-            <div class="card-body">
-                <form action="" method="post" novalidate>
-                    {{ form.hidden_tag() }}
-                    <div class="form-group row">
-                        {{ form.username.label(class="col-md-4 col-form-label text-md-right") }}
-                        <div class="col-md-6">
-                            {{ form.username(class="form-control") }}
-                            {% for error in form.username.errors %}
-                                <div class='invalid-feedback'>{{ error }}</div>
-                            {% endfor %}
-                        </div>
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2>Create An Account</h2>
+            <p>Please fill out this form to register with us</p>
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label for="name">Name: <sup>*</sup></label>
+                    {{ form.username(class="form-control form-control-lg") }}
+                    {% for error in form.username.errors %}
+                        <span class='invalid-feedback'>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="name">Email: <sup>*</sup></label>
+                    {{ form.email(class="form-control form-control-lg") }}
+                    {% for error in form.email.errors %}
+                        <span class='invalid-feedback'>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="name">Password: <sup>*</sup></label>
+                    {{ form.password(class="form-control form-control-lg") }}
+                    {% for error in form.password.errors %}
+                        <span class='invalid-feedback'>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label for="name">Confirm Password: <sup>*</sup></label>
+                    {{ form.password_confirm(class="form-control form-control-lg") }}
+                    {% for error in form.password_confirm.errors %}
+                        <span class='invalid-feedback'>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form.submit(class="btn btn-success btn-block") }}
                     </div>
-                    <div class="form-group row">
-                        {{ form.email.label(class="col-md-4 col-form-label text-md-right") }}
-                            <div class="col-md-6">
-                                {{ form.email(class="form-control") }}
-                                {% for error in form.email.errors %}
-                                    <div class='invalid-feedback'>{{ error }}</div>
-                                {% endfor %}
-                            </div>
+                    <div class="col">
+                        <a href="{{ url_for('login') }}" class="btn btn-light btn-block">Have an account? Login</a>
                     </div>
-                    <div class="form-group row">
-                        {{ form.password.label(class="col-md-4 col-form-label text-md-right") }}
-                        <div class="col-md-6">
-                            {{ form.password(class="form-control") }}
-                            {% for error in form.password.errors %}
-                                <div class='invalid-feedback'>{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        {{ form.password_confirm.label(class="col-md-4 col-form-label text-md-right") }}
-                         <div class="col-md-6">
-                            {{ form.password_confirm(class="form-control") }}
-                            {% for error in form.password_confirm.errors %}
-                                <div class='invalid-feedback'>{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            {{ form.submit(class="btn btn-primary") }}
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
