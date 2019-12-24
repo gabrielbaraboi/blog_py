@@ -2,7 +2,7 @@
   "name": "blogpy",
   "version": "1.0.0",
   "description": "A blog built on Flask Framework",
-  "main": "app.py",
+  "main": "blog.py",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

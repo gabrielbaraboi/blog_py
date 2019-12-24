@@ -7,7 +7,7 @@ var gulp         = require('gulp'),
 
 // Custom Styles
 gulp.task('styles', function() {
-	return gulp.src('resources/sass/**/*.sass')
+	return gulp.src('app/templates/resources/sass/**/*.sass')
 	.pipe(sass({
 		outputStyle: 'expanded',
 		includePaths: [__dirname + '/node_modules']
@@ -18,7 +18,7 @@ gulp.task('styles', function() {
 		overrideBrowserslist: ['last 10 versions']
 	}))
 	.pipe(cleancss( {level: { 1: { specialComments: 0 } } })) // Optional. Comment out when debugging
-	.pipe(gulp.dest('static/css'))
+	.pipe(gulp.dest('app/static/css'))
 });
 
 // Scripts & JS Libraries
@@ -26,7 +26,7 @@ gulp.task('scripts', function() {
 	return gulp.src([
 		// 'node_modules/jquery/dist/jquery.min.js', // Optional jQuery plug-in (npm i --save-dev jquery)
 		// 'resources/js/_libs.js', // JS libraries (all in one)
-		'resources/js/custom.js', // Custom scripts. Always at the end
+		'app/templates/resources/js/custom.js', // Custom scripts. Always at the end
 		])
 	.pipe(concat('scripts.min.js'))
 	.pipe(uglify()) // Minify js (opt.)
@@ -34,8 +34,8 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch('resources/sass/**/*.sass', gulp.parallel('styles'));
-	gulp.watch('resources/js/custom.js', gulp.parallel('scripts'));
+	gulp.watch('app/templates/resources/sass/**/*.sass', gulp.parallel('styles'));
+	gulp.watch('app/templates/resources/js/custom.js', gulp.parallel('scripts'));
 });
 
 gulp.task('default', gulp.parallel('styles', 'scripts', 'watch'));
