@@ -1,9 +1,14 @@
 from datetime import datetime
+
 from flask_login import UserMixin, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import login
 
 from app import db
+from app import login, app
+from config import Config
+
+app_name = Config.app_name
+current_year = Config.current_year
 
 
 def is_admin():
@@ -38,3 +43,8 @@ class Post(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+
+@app.context_processor
+def inject_variables():
+    return dict(app_name=app_name, current_year=current_year)

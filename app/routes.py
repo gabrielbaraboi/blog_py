@@ -18,21 +18,24 @@ def index():
     global app_name
     return render_template('index.html',
                            title='Home',
-                           is_admin=is_admin(),
-                           app_name=app_name)
-
-
+                           is_admin=is_admin())
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     global app_name
     if not is_admin():
         flash('You are not administrator', 'danger')
         return redirect('index')
     return render_template('dashboard/index.html',
-                           title='Dashboard',
-                           app_name=app_name)
+                           title='Dashboard')
+
+@app.route('/dashboard/users')
+@login_required
+def dashboard_users():
+    return render_template('dashboard/user_all.html',
+                           title="All Users")
 
 
 @app.route('/profile/<username>')
@@ -44,7 +47,6 @@ def profile(username):
     return render_template('profile.html',
                            user=user,
                            title=title,
-                           app_name=app_name,
                            is_admin=is_admin())
 
 
@@ -67,8 +69,7 @@ def login():
         return redirect(next_page)
     return render_template('login.html',
                            title='Sign In',
-                           form=form,
-                           app_name=app_name)
+                           form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -89,8 +90,7 @@ def register():
         return redirect('login')
     return render_template('register.html',
                            title='Register',
-                           form=form,
-                           app_name=app_name)
+                           form=form)
 
 
 @app.route('/logout')
