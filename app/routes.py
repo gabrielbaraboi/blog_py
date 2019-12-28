@@ -3,19 +3,15 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 
 from app import app, db
-from app.forms import LoginForm
+from app.forms import LoginForm, CreatePostForm
 from app.forms import RegisterForm
-from app.models import User, is_admin
-from config import Config
-
-app_name = Config.app_name
+from app.models import User, is_admin, Post
 
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    global app_name
     return render_template('index.html',
                            title='Home',
                            is_admin=is_admin())
@@ -24,24 +20,44 @@ def index():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    global app_name
     if not is_admin():
         flash('You are not administrator', 'danger')
         return redirect('index')
     return render_template('dashboard/index.html',
                            title='Dashboard')
 
+
 @app.route('/dashboard/users')
 @login_required
 def dashboard_users():
+    user = User.query.all()
     return render_template('dashboard/user_all.html',
-                           title="All Users")
+                           title="All Users",
+                           user=user,
+                           len=len(user))
+
+
+@app.route('/dashboard/post/new', methods=['GET', 'POST'])
+@login_required
+def dashboard_post_new():
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        post = Post()
+        post.title = form.title.data
+        post.content = form.content.data
+        post.user_id = current_user.id
+        db.session.add(post)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!', 'success')
+        return redirect(url_for('dashboard'))
+    return render_template('dashboard/post_new.html',
+                           title="New Post",
+                           form=form)
 
 
 @app.route('/profile/<username>')
 @login_required
 def profile(username):
-    global app_name
     user = User.query.filter_by(username=username).first_or_404()
     title = 'Profile - ' + user.username
     return render_template('profile.html',
@@ -52,7 +68,6 @@ def profile(username):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    global app_name
     if current_user.is_authenticated:
         flash('You are already logged in', 'warning')
         return redirect(url_for('index'))
@@ -74,7 +89,6 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    global app_name
     if current_user.is_authenticated:
         flash('You are already logged in', 'warning')
         return redirect(url_for('index'))

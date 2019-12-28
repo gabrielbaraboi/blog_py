@@ -49,7 +49,7 @@
     });
 
     $(document).ready(function () {
-        $('#myTable').DataTable();
+        $('#usersTable').DataTable();
     });
 
 })(jQuery); // End of use strict
