@@ -12,9 +12,11 @@ from app.models import User, is_admin, Post
 @app.route('/index')
 @login_required
 def index():
+    posts = Post.query.all()
     return render_template('index.html',
                            title='Home',
-                           is_admin=is_admin())
+                           is_admin=is_admin(),
+                           posts=posts)
 
 
 @app.route('/dashboard')

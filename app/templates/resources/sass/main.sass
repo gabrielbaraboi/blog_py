@@ -3,8 +3,10 @@
 html
   position: relative
   min-height: 100%
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 
 body
+  font-family: 'Nunito', sans-serif !important
   height: 100%
 
 a:focus
@@ -14,7 +16,7 @@ a:focus
   display: flex
 
   #content-wrapper
-    background-color: #f8f9fc
+    background-color: #eee
     width: 100%
     overflow-x: hidden
 
@@ -75,36 +77,6 @@ a:focus
 .sidebar .nav-item .nav-link .img-profile
   height: 2rem
   width: 2rem
-
-.topbar
-  .nav-item .nav-link .img-profile
-    height: 2rem
-    width: 2rem
-
-  height: 4.375rem
-
-  #sidebarToggleTop
-    height: 2.5rem
-    width: 2.5rem
-
-    &:hover
-      background-color: #eaecf4
-
-    &:active
-      background-color: #dddfeb
-
-  .navbar-search
-    width: 25rem
-
-    input
-      font-size: 0.85rem
-      height: auto
-
-  .topbar-divider
-    width: 0
-    border-right: 1px solid #e3e6f0
-    height: calc(4.375rem - 2rem)
-    margin: auto 1rem
 
   .nav-item
     .nav-link
@@ -197,9 +169,12 @@ a:focus
       .dropdown-item .text-truncate
         max-width: 13.375rem
 
+.navbar-nav.sidebar
+  width: 300px !important
+
 .sidebar
-  width: 6.5rem
   min-height: 100vh
+  background: #050707 !important
   z-index: 1200
 
   .nav-item
@@ -559,3 +534,23 @@ footer.sticky-footer
 
 body.sidebar-toggled footer.sticky-footer
   width: 100%
+
+.card-icon
+  border-radius: 3px
+  background: linear-gradient(60deg, #ab47bc, #8e24aa)
+  padding: 15px
+  margin-top: -20px
+  margin-right: 15px
+  float: left
+
+  i
+    font-size: 24px
+    color: #fff
+    line-height: 1
+    letter-spacing: normal
+    text-transform: none
+    white-space: nowrap
+    word-wrap: normal
+
+.invalid-feedback
+  display: block

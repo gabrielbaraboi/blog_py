@@ -1,5 +1,9 @@
 {% extends 'layout/base.html' %}
 
 {% block content %}
-
+    <ul>
+        {% for post in posts %}
+            <li>{{ post.title, post.content, post.author.username, post.timestamp }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
