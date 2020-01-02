@@ -57,6 +57,16 @@ def dashboard_post_new():
                            form=form)
 
 
+@app.route('/post/<id>')
+def single(id):
+    post = Post.query.filter_by(id=id).first_or_404()
+    title = post.title
+    return render_template('single.html',
+                           post=post,
+                           title=title,
+                           is_admin=is_admin())
+
+
 @app.route('/profile/<username>')
 @login_required
 def profile(username):

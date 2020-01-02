@@ -1,0 +1,32 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    <div class=" @guest col-md-12 @else col-md-10 @endguest">
+        <div class="container">
+            <div class="row blog_posts stander_blog">
+                <div class="col-md-12 col-lg-12">
+                    <article>
+                        <div class="post_img card-blog-img">
+                            <img src="../static/img/post_default.png" alt="Card image cap">
+                            <a href="#">
+                                <span class="card-blog-meta" style="background-color: #007cbe;">Category</span>
+                            </a>
+                        </div>
+                        <div class="card-blog-content">
+                            <h5 class="post_title">
+                                <a href="{{ url_for('single', id=post.id) }}">{{ post.title }}</a>
+                            </h5>
+                            <div class="post_meta_top">
+                                <span class="post_meta_date">{{ post.timestamp }}</span>
+                                <span class="post_meta_author">Author: {{ post.author.username }}</span>
+                            </div>
+                            <div class="post_content">
+                                <p>{{ post.content }}</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

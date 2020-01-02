@@ -1,48 +1,42 @@
 {% extends "layout/base.html" %}
 
 {% block content %}
-    <div class="col-md-6 mx-auto">
-        <div class="card card-body bg-light mt-5">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <ul class="list-group messages">
-                        {% for category, message in messages %}
-                            <li class="list-group-item list-group-item-{{ category }}">{{ message }}</li>
+    <div class="row justify-content-center">
+        <div class="card col-md-5 login shadow">
+            <div class="card-body">
+            <span class="login-icon">
+                <i class="fas fa-sign-in-alt"></i>
+            </span>
+                <h2 class="login-title">Log In</h2>
+                <form action="" method="post" novalidate class="mt-5">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group login-group">
+                        {{ form.username(class="login-form", placeholder="Username", autocomplete="off") }}
+                        <span class="login-span username"></span>
+                        {% for error in form.username.errors %}
+                            <span class='invalid-feedback'>{{ error }}</span>
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            {% endwith %}
-            <h2>Login</h2>
-            <p>Please fill in your credentials to log in</p>
-            <form action="" method="post" novalidate>
-                {{ form.hidden_tag() }}
-                <div class="form-group">
-                    <label for="username">Name: <sup>*</sup></label>
-                    {{ form.username(class="form-control form-control-lg") }}
-                    {% for error in form.username.errors %}
-                        <span class='invalid-feedback'>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                <div class="form-group">
-                    <label for="password">Password: <sup>*</sup></label>
-                    {{ form.password(class="form-control form-control-lg") }}
-                    {% for error in form.password.errors %}
-                        <span class='invalid-feedback'>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                <div class="form-check form-group">
-                     {{ form.remember_me(class="form-check-input") }}
-                    <label class="form-check-label" for="remember_me">Remember me</label>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        {{ form.submit(class="btn btn-success btn-block") }}
                     </div>
-                    <div class="col">
-                        <a href="{{ url_for('register') }}" class="btn btn-light btn-block">No account? Register</a>
+                    <br>
+                    <div class="form-group login-group">
+                        {{ form.password(class="login-form", placeholder="Password", autocomplete="off") }}
+                        <span class="login-span password"></span>
+                        {% for error in form.password.errors %}
+                            <span class='invalid-feedback'>{{ error }}</span>
+                        {% endfor %}
                     </div>
-                </div>
-            </form>
+                    <br>
+                    <div class="form-check form-group login-check">
+                        {{ form.remember_me(class="form-check-input") }}
+                        <label class="form-check-label" for="remember_me">Remember me</label>
+                    </div>
+                    <div class="login-links">
+                        {{ form.submit(class="login-btn", value="Login") }}
+                        <a href="">Lost Password?</a>
+                        <a href="">No account? Register</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

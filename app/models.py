@@ -41,6 +41,12 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    color = db.Column(db.String(6))
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
